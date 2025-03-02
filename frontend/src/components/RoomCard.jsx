@@ -32,14 +32,26 @@ const RoomCard = ({ building }) => {
   const buildingImage = imageMap[building.name];
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md">
+    <div className="relative bg-white rounded-lg shadow-md overflow-hidden">
+      {/* Building Image */}
       <img
         src={buildingImage}
         alt={building.name}
-        className="w-full h-48 object-cover rounded-md mb-4"
+        className="w-full h-56 object-cover"
       />
-      <h3 className="text-lg font-semibold">{building.name}</h3>
-      <p className="text-gray-600">{building.rooms_available} rooms available</p>
+
+      {/* Rooms Available Badge */}
+      <div className="absolute top-2 right-2 bg-white text-xs font-medium px-3 py-1 rounded-xl shadow-md flex items-center space-x-1">
+        <span className="material-symbols-outlined text-green-500 text-xs">
+          circle
+        </span>
+        <span className="text-gray-700">{building.rooms_available} rooms available</span>
+      </div>
+
+      {/* Building Name */}
+      <div className="absolute bottom-2 left-3 right-3 bg-orange-600 text-white p-3 rounded-lg text-center font-medium">
+        {building.name}
+      </div>
     </div>
   );
 };
