@@ -49,7 +49,7 @@ const RoomCard = ({ building }) => {
       </div>
 
       {/* Building Name */}
-      <div className="absolute bottom-2 left-3 right-3 bg-orange-600 text-white p-3 rounded-lg text-center font-medium">
+      <div className="absolute bottom-2 left-3 right-3 bg-orange-600 text-white p-3 rounded-lg text-center text-left">
         {building.name}
       </div>
     </div>
