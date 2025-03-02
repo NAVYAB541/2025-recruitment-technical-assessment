@@ -8,7 +8,7 @@ const Filters = () => {
         {/* Filter Button */}
         <button className="flex items-center border-3 border-orange-500 space-x-2 bg-white text-orange-500 px-4 py-1 rounded-lg">
           <span className="material-symbols-outlined">filter_alt</span>
-          <span>Filters</span>
+          <span className="sm:inline hidden">Filters</span>
         </button>
 
         {/* Search Bar */}
@@ -21,14 +21,14 @@ const Filters = () => {
           <input
             type="text"
             placeholder="Search for a building..."
-            className="w-full px-11 py-1 border border-gray-300 rounded-sm shadow-sm text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className="w-full px-11 py-1 border border-gray-300 rounded-sm shadow-sm text-gray-700 placeholder-transparent sm:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500"
           />
         </div>
 
         {/* Sort Button */}
         <button className="flex items-center space-x-2 bg-white text-orange-500 border-3 border-orange-500 px-4 py-1 rounded-lg">
           <span className="material-symbols-outlined">filter_list</span>
-          <span>Sort</span>
+          <span className="sm:inline hidden">Sort</span>
         </button>
       </div>
     </div>
