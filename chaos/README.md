@@ -34,17 +34,33 @@ Make sure to include foreign keys for the relationships that will `CASCADE` upon
 **Answer box:**
 ```sql
 CREATE TABLE forms (
-    --     Add columns here
+  id INTEGER,
+  title TEXT NOT NULL,
+  description TEXT,
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE questions (
-    --     Add columns here
+  id INTEGER,
+  form_id INTEGER NOT NULL,
+  title TEXT NOT NULL,
+  question_type question_type NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (form_id) REFERENCES forms(id) ON DELETE CASCADE
 );
 
 CREATE TABLE question_options (
-    --     Add columns here
+  id INTEGER,
+  question_id INTEGER NOT NULL,
+  option TEXT,
+  PRIMARY KEY (id),
+  FOREIGN KEY (question_id) REFERENCES questions(id) ON DELETE CASCADE
 );
 ```
+**Comment: I am assuming there exists an enum `question_type`. For example:**
+```sql 
+CREATE TYPE question_type AS ENUM ('ShortAnswer', 'MultiSelect', 'MultiChoice'); 
+``` 
 
 ### b)
 Using the above schema, write a (Postgres) SQL `SELECT` query to return all questions in the following format, given the form id `26583`:
@@ -58,5 +74,19 @@ Using the above schema, write a (Postgres) SQL `SELECT` query to return all ques
 
 **Answer box:**
 ```sql
--- Write query here
+SELECT 
+    q.id,
+    q.form_id,
+    q.title,
+    q.question_type,
+    COALESCE(
+        array_agg(qo.option) FILTER (WHERE qo.option IS NOT NULL),
+        ARRAY[NULL]
+    ) AS options
+FROM questions q
+LEFT JOIN question_options qo
+    ON q.id = qo.question_id
+WHERE q.form_id = 26583
+GROUP BY q.id, q.form_id, q.title, q.question_type
+ORDER BY q.id;
 ```
